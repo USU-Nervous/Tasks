@@ -32,7 +32,7 @@ x:
 	mov	ds,	ax
 	jmp	8:next
 next:	sti
-	hlt
+
 	jmp	0x1000:0
 	cli
 	;
