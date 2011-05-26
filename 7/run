@@ -1,0 +1,7 @@
+#!/bin/bash
+g++ -o 2a -lpthread 2a.c
+g++ -o 2b -lpthread 2b.c
+echo Common buffer
+time ./2a
+echo Different buffer
+time ./2b

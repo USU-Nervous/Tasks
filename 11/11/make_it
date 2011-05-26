@@ -1,0 +1,5 @@
+#!/bin/bash
+nasm -o main.o -f aout C_handle_main.asm 
+gcc -c -nostdlib -fno-builtin -fno-rtti -fno-exceptions c_handle.c
+ld -o main.bin -T make.ld main.o c_handle.o
+qemu -fda main.bin -boot a -monitor stdio -d in_asm

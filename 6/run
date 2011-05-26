@@ -1,0 +1,12 @@
+#!/bin/bash
+gcc -o 3 3.c
+echo 'Switching cores'
+time ./3 &
+j=0;
+pid=$!
+while [ "`ps ax -o pid | grep $pid`" != "" ]; do
+	taskset -c -p $((j)) $pid  >/dev/null
+	j=$((j^1));
+done
+echo 'One core'
+time ./3

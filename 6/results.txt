@@ -1,0 +1,10 @@
+Switching cores
+real	0m19.982s
+user	0m9.901s
+sys	0m0.008s
+
+One core
+real	0m16.152s
+user	0m9.964s
+sys	0m0.018s
+

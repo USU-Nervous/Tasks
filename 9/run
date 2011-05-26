@@ -1,0 +1,13 @@
+#!/bin/bash
+gcc -o 9.elf.img 9.c
+gcc -c -o 9.o.img 9.c
+
+objdump -h 9.elf.img 
+objcopy -O binary 9.elf.img 9.elf.all.img
+objcopy -O binary --only-section .text 9.elf.img 9.elf.text.img
+objcopy -O binary --only-section .rodata 9.elf.img 9.elf.data.img
+
+objdump -h 9.o.img 
+objcopy -O binary 9.o.img 9.o.all.img
+objcopy -O binary --only-section .text 9.o.img 9.o.text.img
+objcopy -O binary --only-section .rodata 9.o.img 9.o.data.img
