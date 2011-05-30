@@ -15,7 +15,7 @@ void sigHandler(int number, siginfo_t *info, void *something)
 	if (write(pipefd[1], &number, sizeof(number))<0){err=1;};
 	if (write(pipefd[1], &_pid, sizeof(number))<0){err=1;};
 	if (write(pipefd[1], &_gid, sizeof(number))<0){err=1;};
-	if (err) {stderr,write("pipefail");};
+	if (err) {write(2,"pipefail");};
 	if(number==EXIT_SIGNAL)
 		 close(pipefd[1]);
 }
@@ -56,7 +56,7 @@ int main()
 			fprintf(stderr,"Signal %d arrived pid=%d, gid=%d\n", number, _pid, _gid);
 			}
 		else(err=1;)
-		if (err) {write(stderr,"pipefail");};
+		if (err) {write(2,"pipefail");};
 	}
 	while(number != EXIT_SIGNAL);
 	return 0;
