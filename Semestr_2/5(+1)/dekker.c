@@ -26,9 +26,9 @@ static void enter(int num)
 	while (flags[1-num])
 		{
 			if (turn!=num) 
-			{flags[num]=0;
+			{flags[num]=0;asm volatile("mfence" : : : "memory");
 			while (turn!=num) {};
-			flags[num]=1;asm volatile("mfence" : : : "memory");
+			flags[num]=1;
 			}
 		}
 	return;
