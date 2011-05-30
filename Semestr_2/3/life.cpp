@@ -70,7 +70,7 @@ static void *life_thread(void *args){
 			//for(int y = 0; y < nRow; y++)
 			//	for(int x = 0; x < nCol; x++)
 			//		{cells[y][x] = ncells[y][x];}
-                              int* __cells = *cells;
+                              bool* __cells = *cells;
                               cells = ncells;
                               ncells = __cells;
 			pthread_mutex_unlock(&print_lock);
