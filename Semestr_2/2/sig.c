@@ -9,11 +9,13 @@ int pipefd[2];
 
 void sigHandler(int number, siginfo_t *info, void *something)
 {
+	int err = 0;
 	int _pid = getpid();
 	int _gid = getpgrp();
-	write(pipefd[1], &number, sizeof(number));
-	write(pipefd[1], &_pid, sizeof(number));
-	write(pipefd[1], &_gid, sizeof(number));
+	if (write(pipefd[1], &number, sizeof(number))<0){err=1;};
+	if (write(pipefd[1], &_pid, sizeof(number))<0){err=1;};
+	if (write(pipefd[1], &_gid, sizeof(number))<0){err=1;};
+	if (err) {stderr,write("pipefail");};
 	if(number==EXIT_SIGNAL)
 		 close(pipefd[1]);
 }
@@ -46,12 +48,15 @@ int main()
 
 	do
 	{
+		int err = 0;
 		if(read(pipefd[0], &number, sizeof(number)) > 0)
 			{
-			read(pipefd[0], &_pid, sizeof(number));
-			read(pipefd[0], &_gid, sizeof(number));
+			if (read(pipefd[0], &_pid, sizeof(number))<0){err=1;};
+			if (read(pipefd[0], &_gid, sizeof(number))<0){err=1;};
 			fprintf(stderr,"Signal %d arrived pid=%d, gid=%d\n", number, _pid, _gid);
 			}
+		else(err=1;)
+		if (err) {write(stderr,"pipefail");};
 	}
 	while(number != EXIT_SIGNAL);
 	return 0;
